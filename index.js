@@ -13,6 +13,7 @@ var iface = {
         downsampling: PropTypes.number,
         blurStyle: PropTypes.string,
         vibrant: PropTypes.bool,
+        onPress: PropTypes.func
     }
 };
 var RCTSajjadBlurOverlay = Platform.select({
@@ -64,13 +65,13 @@ export default class BlurOverlay extends React.Component {
     }
 
     render() {
-        const { children } = this.props;
+        const { children, customStyles, onPress = this._closeOverlay } = this.props;
         return (
             this.state.showBlurOverlay ?
             <Animated.View style={[ {opacity: this.state.fadeIn},styles.style]}>
-            <TouchableWithoutFeedback style={styles.style} onPress={this._closeOverlay}>
-                <RCTSajjadBlurOverlay {...this.props} style={[this.props.customStyles,styles.style]}>
-                <View style={[this.props.customStyles,styles.style]}>
+            <TouchableWithoutFeedback style={styles.style} onPress={onPress}>
+                <RCTSajjadBlurOverlay {...this.props} style={[customStyles,styles.style]}>
+                <View style={[customStyles,styles.style]}>
                     {children}
                 </View>
                 </RCTSajjadBlurOverlay>
